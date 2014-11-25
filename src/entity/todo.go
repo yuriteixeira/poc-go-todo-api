@@ -1,6 +1,6 @@
 package entity
 
 type Todo struct {
-	Id   string
+	Id   int
 	Text string
 }

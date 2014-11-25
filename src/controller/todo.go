@@ -4,37 +4,40 @@ import (
 	"entity"
 	"fmt"
 	"net/http"
+	"repository"
 )
 
 type Todo struct {
-	data map[string]entity.Todo
+	repo *repository.Todo
 }
 
-func NewTodo(data map[string]entity.Todo) *Todo {
+func NewTodo(repo *repository.Todo) *Todo {
 	t := new(Todo)
-	t.data = data
+	t.repo = repo
+
 	return t
 }
 
 func (t *Todo) Post(res http.ResponseWriter, req *http.Request) {
 	item := entity.Todo{}
-	item.Id = req.FormValue("id")
 	item.Text = req.FormValue("text")
-	t.data[item.Id] = item
+
+	t.repo.Add(item)
 
 	res.WriteHeader(200)
 }
 
 func (t *Todo) Get(res http.ResponseWriter) string {
-	var result string
+	response := ""
+	data := t.repo.List()
 
-	if len(t.data) < 1 {
-		res.WriteHeader(418)
+	if len(data) < 1 {
+		res.WriteHeader(204)
 	}
 
-	for k := range t.data {
-		result += fmt.Sprintf("%s: %s\n", t.data[k].Id, t.data[k].Text)
+	for k := range data {
+		response += fmt.Sprintf("%d: %s\n", data[k].Id, data[k].Text)
 	}
 
-	return result
+	return response
 }
