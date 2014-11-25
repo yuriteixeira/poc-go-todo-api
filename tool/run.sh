@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source env.sh
+source tool/env.sh
 
 # Runs a watcher to recompile on each change
 echo ""

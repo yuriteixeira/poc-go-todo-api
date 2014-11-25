@@ -1,9 +1,9 @@
 package main
 
 import (
+	"controller"
+	"entity"
 	"github.com/go-martini/martini"
-	"myproject/controller"
-	"myproject/entity"
 )
 
 func main() {

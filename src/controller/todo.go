@@ -1,8 +1,8 @@
 package controller
 
 import (
+	"entity"
 	"fmt"
-	"myproject/entity"
 	"net/http"
 )
 
